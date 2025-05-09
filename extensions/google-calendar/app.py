@@ -144,7 +144,8 @@ def get_calendar_events():
         "Authorization": f"Bearer {access_token}",
     }
 
-    current_time = datetime.datetime.now(pytz.utc)
+    # Always start the day at 7am
+    current_time = datetime.datetime.now(pytz.utc).replace(hour=7, minute=0, second=0, microsecond=0)
     time_min = current_time.isoformat()
     time_max = (current_time + datetime.timedelta(days=1)).isoformat()
 
