@@ -1,0 +1,212 @@
+- name: Home
+  # Optionally, if you only have a single page you can hide the desktop navigation for a cleaner look
+  hide-desktop-navigation: true
+  columns:
+    - size: small
+      widgets:
+        - type: clock
+          hour-format: 12h
+          timezones:
+            - timezone: Europe/Dublin
+              label: Ireland
+            - timezone: America/Los_Angeles
+              label: LA
+
+        #- type: calendar
+        #  first-day-of-week: sunday
+
+        - type: bookmarks
+          groups:
+            - links:
+                - title: Workday
+                  url: https://wd5.myworkday.com/redhat/login.htmld
+                  icon: https://www.workday.com/content/dam/web/zz/images/logos/workday/workday-logo.svg#icon
+                - title: Concur
+                  url: https://auth.redhat.com/auth/realms/EmployeeIDP/protocol/saml/clients/concursolutions
+                  icon: https://www.gpsupportnorth.com/wp-content/uploads/2019/10/Concur-Microsoft-Dynamics-GP.png
+                - title: Egencia
+                  url: http://redhat.egencia.com/
+                  icon: https://play-lh.googleusercontent.com/f7zhQNN_gvbEoAM_DsxS50tPzuNWO_ZpordqItDGlBc2RQ5DDw-OrHhD23xkVOAc5Q=w240-h480
+                - title: Skills Base
+                  url: https://app.skills-base.com/o/redhat
+                  icon: https://www.softwareadvice.com/_next/image/?url=https%3A%2F%2Fgdm-catalog-fmapi-prod.imgix.net%2FProductLogo%2F0e5fca68-a9c7-4b37-bb1c-53496617dc24.png&w=256&q=75
+                - title: Sales Cloud
+                  url: https://auth.redhat.com/auth/realms/EmployeeIDP/protocol/saml/clients/redhat-crm
+                  icon: https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Salesforce.com_logo.svg/330px-Salesforce.com_logo.svg.png
+                - title: Red Hat Learning
+                  url: https://role.rhu.redhat.com/
+                  icon: https://www.redhat.com/rhdc/managed-files/Logo-Red_Hat-Hat_icon-Standard-RGB.svg
+                - title: ADP Payslip
+                  url: https://auth.redhat.com/auth/realms/EmployeeIDP/protocol/saml/clients/adp
+                  icon: https://www.redhat.com/rhdc/managed-files/Logo-Red_Hat-Hat_icon-Standard-RGB.svg
+            - title: Red Hat Internal
+              links:
+                - title: The Source
+                  url: https://source.redhat.com/saml.redirect?relayState=
+                  icon: https://www.redhat.com/rhdc/managed-files/Logo-Red_Hat-Hat_icon-Standard-RGB.svg
+                - title: Rover | People
+                  url: https://rover.redhat.com/people
+                  icon: di:google-contacts
+                - title: Rover | Groups
+                  url: https://rover.redhat.com/groups
+                  icon: https://unpkg.com/feather-icons/dist/icons/users.svg
+                - title: Rover | Search
+                  url: https://rover.redhat.com/
+                  icon: https://unpkg.com/feather-icons/dist/icons/search.svg
+                - title: Rover | Apps
+                  url: https://rover.redhat.com/apps/
+                  icon: di:google-play
+                - title: Reward Zone
+                  url: https://rewardzone.redhat.com/
+                  icon: https://unpkg.com/feather-icons/dist/icons/star.svg
+                - title: Cool Stuff Store
+                  url: https://coolstuff.redhat.com/
+                  icon: https://unpkg.com/feather-icons/dist/icons/shopping-cart.svg
+            - title: Pre-Sales
+              links:
+                - title: NA PreSales Dashboard
+                  url: https://redhat.service-now.com/$pa_dashboard.do?sysparm_dashboard=a40f302c1bb46d104cec766dcc4bcbe1&sysparm_tab=494fb46c1bb46d104cec766dcc4bcb7b&sysparm_cancelable=true&sysparm_editable=true
+                  icon: https://unpkg.com/feather-icons/dist/icons/layout.svg
+                - title: NA PreSales Kanban
+                  url: https://redhat.service-now.com/$vtb.do?sysparm_board=004f995e971a2990d658b82bf253aff9
+                  icon: https://unpkg.com/feather-icons/dist/icons/trello.svg
+                - title: Daily Stand-Up Notes
+                  url: https://docs.google.com/document/d/1u4_zTPhV5ohfxE2yfwdp7l74WqatjW_Sue6JMjA_rEs/edit?usp=sharing&urp=gmail_link
+                  icon: https://unpkg.com/feather-icons/dist/icons/file-text.svg
+                - title: NA PreSales Source Page
+                  url: https://source.redhat.com/departments/sales/global_services/na_services/north_america_customer_success_content/north_american_pre_sales_team
+                  icon: https://www.redhat.com/rhdc/managed-files/Logo-Red_Hat-Hat_icon-Standard-RGB.svg
+                - title: Curators Report
+                  url: https://redhat.service-now.com/nav_to.do?uri=%2F$pa_dashboard.do%3Fsysparm_dashboard%3D1445bfa487887550949fbbbf8bbb3527
+                  icon: https://unpkg.com/feather-icons/dist/icons/pie-chart.svg
+                - title: PreSales & Delivery Practice Tracking Sheet
+                  url: https://docs.google.com/spreadsheets/d/1vkH0mQgIs0Sh7pFo2RmThXQWFtu49cXAuxQX2qTzGbI/edit?gid=730835763#gid=730835763
+                  icon: https://unpkg.com/feather-icons/dist/icons/table.svg
+
+    - size: full
+      widgets:
+        - type: custom-api
+          title: Calendar
+          cache: 1h
+          url: http://glance-tasks-backend:8075/data
+          template: |
+            <div style="position: relative; height: 345px;">
+              {{ range .JSON.Array "events" }}
+                <div style="position: absolute; 
+                            top: {{ .Int "top" }}px; 
+                            height: {{ .Int "height" }}px; 
+                            left: {{ .Float "left" }}%;
+                            width: {{ .Float "width" }}%;
+                            background: #c7c7c7; 
+                            margin: 2px;
+                            padding: 4px; 
+                            border-radius: 4px; 
+                            font-size: 14px;
+                            display: flex; 
+                            justify-content: space-between; 
+                            align-items: top;">
+                  <div style="font-size: 12px; font-weight: bold; color: #202124;">
+                        {{ .String "summary" }}
+                  </div>
+                  <div style="font-size: 14px; color: #5f6368;">
+                      {{ $parsedStartTime :=  .String "start" | parseTime "rfc3339"  }}
+                      {{ $parsedEndTime :=  .String "end" | parseTime "rfc3339"  }}
+                      {{ $parsedStartTime.Format "03:04 PM" }} -  {{ $parsedEndTime.Format "03:04 PM" }}
+                    </div>
+                </div>
+              {{ end }}
+            </div>
+        - type: group
+          widgets:
+            - type: rss
+              title: Steelers Depot
+              style: detailed-list
+              collapse-after: 3
+              feeds:
+                - url: https://steelersdepot.com/feed/
+            - type: rss
+              title: News
+              style: detailed-list
+              feeds:
+                - url: https://ncregister.com/feeds/general-news.xml
+                  title: NCRegister
+                - url: https://www.theblaze.com/feeds/feed.rss
+                  title: Blaze
+                - url: https://moxie.foxnews.com/google-publisher/politics.xml
+                  title: Fox
+                - url: https://redstate.com/feed/
+                  title: RedState
+            - type: hacker-news
+            - type: lobsters
+              tags:
+                - programming
+                - devops
+                - java
+                - finance
+
+        #- type: videos
+        #  channels:
+        #    - UCXuqSBlHAE6Xw-yeJA0Tunw # Linus Tech Tips
+        #    - UCR-DXc1voovS8nhAvccRZhg # Jeff Geerling
+        #    - UCsBjURrPoezykLs9EqgamOA # Fireship
+        #    - UCBJycsmduvYEL83R_U4JriQ # Marques Brownlee
+        #    - UCHnyfMqiRRG1u-2MsSQLbXA # Veritasium
+
+        - type: group
+          widgets:
+            - type: reddit
+              subreddit: openshift
+              show-thumbnails: true
+            - type: reddit
+              subreddit: containers
+              show-thumbnails: true
+            - type: reddit
+              subreddit: kubernetes
+              show-thumbnails: true
+            - type: reddit
+              subreddit: microservices
+              show-thumbnails: true
+            - type: reddit
+              subreddit: cloudcomputing
+              show-thumbnails: true
+            - type: reddit
+              subreddit: PlatformEngineering
+              show-thumbnails: true
+
+
+    - size: small
+      widgets:
+        - type: weather
+          location: Casselberry,United States
+          units: imperial # alternatively "imperial"
+          hour-format: 12h # alternatively "24h"
+          # Optionally hide the location from being displayed in the widget
+          # hide-location: true
+
+        - type: markets
+          markets:
+            - symbol: ^DJI
+              name: Dow Jones
+            - symbol: SPY
+              name: S&P 500
+            - symbol: IBM
+              name: IBM
+            - symbol: XRP-USD
+              name: XRP
+            - symbol: USDEUR=X
+              name: USD/EUR
+
+        - type: server-stats
+          servers:
+            - type: local
+              name: RH Laptop 
+        #- type: releases
+        #  cache: 1d
+          # Without authentication the Github API allows for up to 60 requests per hour. You can create a
+          # read-only token from your Github account settings and use it here to increase the limit.
+          # token: ...
+        #  repositories:
+        #    - glanceapp/glance
+        #    - go-gitea/gitea
+        #    - immich-app/immich
+        #    - syncthing/syncthing
