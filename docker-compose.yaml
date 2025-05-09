@@ -1,0 +1,25 @@
+services:
+  glance-tasks-backend:
+    container_name: glance_google_calendar_backend
+    build: ./ext
+    ports:
+      - "8075:8075"
+    restart: always
+    environment:
+      - CLIENT_ID={REPACE_ME}
+      - CLIENT_SECRET={REPACE_ME}
+      - REFRESH_TOKEN={REPACE_ME}
+  glance:
+    container_name: glance
+    image: glanceapp/glance
+    restart: unless-stopped
+    volumes:
+      - ./config:/app/config:Z
+      - ./assets:/app/assets:Z
+      # Optionally, also mount docker socket if you want to use the docker containers widget
+      # - /var/run/docker.sock:/var/run/docker.sock:ro
+    ports:
+      - 8080:8080
+    env_file: .env
+    links:
+      glance-tasks-backend
