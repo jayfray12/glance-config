@@ -92,27 +92,18 @@
           template: |
             <div style="position: relative; height: 345px;">
               {{ range .JSON.Array "events" }}
-                <div style="position: absolute; 
-                            top: {{ .Int "top" }}px; 
+                <div class="cal-item-container" style="top: {{ .Int "top" }}px; 
                             height: {{ .Int "height" }}px; 
                             left: {{ .Float "left" }}%;
-                            width: {{ .Float "width" }}%;
-                            background: #c7c7c7; 
-                            margin: 2px;
-                            padding: 4px; 
-                            border-radius: 4px; 
-                            font-size: 14px;
-                            display: flex; 
-                            justify-content: space-between; 
-                            align-items: top;">
-                  <div style="font-size: 12px; font-weight: bold; color: #202124;">
+                            width: {{ .Float "width" }}%;">
+                  <div class="cal-item-summary" style="font-size: {{ .String "em_hint" }}em;">
                         {{ .String "summary" }}
                   </div>
-                  <div style="font-size: 14px; color: #5f6368;">
+                  <div class="cal-item-time" style="font-size: {{ .String "em_hint" }}em;">
                       {{ $parsedStartTime :=  .String "start" | parseTime "rfc3339"  }}
                       {{ $parsedEndTime :=  .String "end" | parseTime "rfc3339"  }}
                       {{ $parsedStartTime.Format "03:04 PM" }} -  {{ $parsedEndTime.Format "03:04 PM" }}
-                    </div>
+                  </div>
                 </div>
               {{ end }}
             </div>
