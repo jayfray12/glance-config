@@ -44,6 +44,17 @@ def get_access_token():
     else:
         print("error getting access token: ", response.status_code, file=sys.stderr)
         return None
+    
+def get_em_quad_hint(input_string):
+  string_length = len(input_string)
+  if string_length < 35:
+    return 1
+  elif 35 <= string_length < 40:
+    return 0.9167
+  elif 40 <= string_length < 45:
+    return 0.8333
+  else:
+    return 0.75
 
 # Process events
 def process_events(events):
@@ -91,6 +102,7 @@ def process_events(events):
             "top": top,
             "height": height,
             "summary": event.get("summary", ""),
+            "em_hint": 1,
             "raw": event
         })
 
@@ -129,6 +141,8 @@ def process_events(events):
         for event in group:
             event["left"] = event["column"] * (column_width + COLUMN_GAP_PX)
             event["width"] = column_width
+            if column_width < 100:
+                event["em_hint"] = get_em_quad_hint(event["summary"])
 
     return parsed_events
 
