@@ -91,6 +91,27 @@
           url: http://glance-tasks-backend:8075/data
           template: |
             <div style="position: relative; height: 345px;">
+              <div class="hour-lines">
+                <div class="hour-line" style="top: 0px;"><div class="hour-label">7:00 AM</div><div class="hour-bar"></div></div>
+                <div class="hour-line" style="top: 28px;"><div class="hour-label">8:00 AM</div><div class="hour-bar"></div></div>
+                <div class="hour-line" style="top: 57px;"><div class="hour-label">9:00 AM</div><div class="hour-bar"></div></div>
+                <div class="hour-line" style="top: 86px;"><div class="hour-label">10:00 AM</div><div class="hour-bar"></div></div>
+                <div class="hour-line" style="top: 115px;"><div class="hour-label">11:00 AM</div><div class="hour-bar"></div></div>
+                <div class="hour-line" style="top: 144px;"><div class="hour-label">12:00 PM</div><div class="hour-bar"></div></div>
+                <div class="hour-line" style="top: 173px;"><div class="hour-label">1:00 PM</div><div class="hour-bar"></div></div>
+                <div class="hour-line" style="top: 202px;"><div class="hour-label">2:00 PM</div><div class="hour-bar"></div></div>
+                <div class="hour-line" style="top: 231px;"><div class="hour-label">3:00 PM</div><div class="hour-bar"></div></div>
+                <div class="hour-line" style="top: 260px;"><div class="hour-label">4:00 PM</div><div class="hour-bar"></div></div>
+                <div class="hour-line" style="top: 289px;"><div class="hour-label">5:00 PM</div><div class="hour-bar"></div></div>
+                <div class="hour-line" style="top: 318px;"><div class="hour-label">6:00 PM</div><div class="hour-bar"></div></div>
+              </div>
+
+              <!-- Current time line -->
+              {{ with .JSON.Int "now_line" }}
+                <div class="now-line" style="top: {{ . }}px;"></div>
+              {{ end }}
+
+              <div class="cal-events">
               {{ range .JSON.Array "events" }}
                 <div class="cal-item-container" style="top: {{ .Int "top" }}px; 
                             height: {{ .Int "height" }}px; 
@@ -106,6 +127,7 @@
                   </div>
                 </div>
               {{ end }}
+              </div>
             </div>
         - type: group
           widgets:
