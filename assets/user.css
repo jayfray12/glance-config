@@ -3,10 +3,16 @@
   background-color: #c7c7c7;
 }
 
+.cal-events {
+  position:relative; 
+  height:345; 
+  margin-left: 49px
+}
+
 .cal-item-container {
   position: absolute; 
   width: 100%;
-  background: #c7c7c7;
+  background: #ee0000;
   margin: 2px;
   padding: 4px; 
   border-radius: 4px; 
@@ -19,10 +25,42 @@
 .cal-item-summary {
   font-size: 1em; 
   font-weight: bold; 
-  color: #202124;
+  color: #FFFFFF;
 }
 
 .cal-item-time {
   font-size: 1em; 
-  color: #5f6368;
+  color: #f2f2f2;
+}
+
+.hour-lines {
+  position: absolute;
+  width: 100%;
+}
+
+.hour-line {
+  position: absolute;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  font-size: 0.75em;
+}
+
+.hour-label {
+  width: 50px;
+  color: #666;
+}
+
+.hour-bar {
+  flex-grow: 1;
+  border-top: 1px solid #c7c7c7;
+  opacity: 0.3;
+}
+
+.now-line {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  border-top: 2px solid #a60000;
+  z-index: 10;
 }
