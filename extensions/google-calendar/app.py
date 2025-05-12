@@ -180,7 +180,16 @@ def get_calendar_events():
 @app.route('/data')
 def calendar_data():
     events = get_calendar_events()
-    return jsonify({"events": events})
+
+    # Compute current now line for calendar
+    now = datetime.datetime.now(pytz.timezone('America/New_York'))
+    now_minutes = now.hour * 60 + now.minute
+    now_since_start = now_minutes - WORK_START_MINUTES
+    now_top = 0
+    if 0 <= now_since_start <= WORK_DURATION_MINUTES:
+        now_top = round(now_since_start * PIXELS_PER_MINUTE)
+        
+    return jsonify({"events": events, "now_line": now_top})
 
 if __name__ == "__main__":
     app.run(debug=True, host='0.0.0.0', port=8075)
