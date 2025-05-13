@@ -58,9 +58,19 @@
 }
 
 .now-line {
+  display: none;
   position: absolute;
   left: 0;
   width: 100%;
   border-top: 2px solid #a60000;
   z-index: 10;
+}
+
+.needsAction {
+  color: #ee0000;
+  background: #FFFFFF;
+}
+
+.cal-item-container.needsAction {
+  border: 1px solid #ee0000;
 }
