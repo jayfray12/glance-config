@@ -87,7 +87,7 @@
       widgets:
         - type: custom-api
           title: Calendar
-          cache: 1h
+          cache: 30m
           url: http://glance-tasks-backend:8075/data
           template: |
             <div style="position: relative; height: 345px;">
@@ -113,17 +113,21 @@
 
               <div class="cal-events">
               {{ range .JSON.Array "events" }}
-                <div class="cal-item-container" style="top: {{ .Int "top" }}px; 
+                <div class="cal-item-container {{ .String "responseStatus" }}" style="top: {{ .Int "top" }}px; 
                             height: {{ .Int "height" }}px; 
                             left: {{ .Float "left" }}%;
                             width: {{ .Float "width" }}%;">
-                  <div class="cal-item-summary" style="font-size: {{ .String "em_hint" }}em;">
+                  <div class="cal-item-summary  {{ .String "responseStatus" }}" style="font-size: {{ .String "em_hint" }}em;">
                         {{ .String "summary" }}
                   </div>
-                  <div class="cal-item-time" style="font-size: {{ .String "em_hint" }}em;">
+                  <div class="cal-item-time  {{ .String "responseStatus" }}" style="font-size: {{ .String "em_hint" }}em;">
                       {{ $parsedStartTime :=  .String "start" | parseTime "rfc3339"  }}
                       {{ $parsedEndTime :=  .String "end" | parseTime "rfc3339"  }}
-                      {{ $parsedStartTime.Format "03:04 PM" }} -  {{ $parsedEndTime.Format "03:04 PM" }}
+                      {{ if eq ($parsedStartTime.Format "04") "00" }}
+                        {{ $parsedStartTime.Format "3" }} -  {{ $parsedEndTime.Format "3:04pm" }}
+                      {{ else }}
+                        {{ $parsedStartTime.Format "3:04" }} -  {{ $parsedEndTime.Format "3:04pm" }}
+                      {{ end }}
                   </div>
                 </div>
               {{ end }}
