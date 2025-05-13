@@ -45,13 +45,26 @@ def get_access_token():
         print("error getting access token: ", response.status_code, file=sys.stderr)
         return None
     
-def get_em_quad_hint(input_string):
+def get_em_quad_hint(input_string, width):
   string_length = len(input_string)
-  if string_length < 35:
+  if width < 31:
+    if string_length <= 21:
+        return 1
+    elif 22 <= string_length < 25:
+        return 0.9167
+    elif 25 <= string_length < 29:
+        return 0.8333
+    elif 29 <= string_length < 34:
+        return 0.75
+    else:
+        return 0.6667
+      
+  
+  if string_length < 41:
     return 1
-  elif 35 <= string_length < 40:
+  elif 41 <= string_length < 46:
     return 0.9167
-  elif 40 <= string_length < 45:
+  elif 46 <= string_length < 51:
     return 0.8333
   else:
     return 0.75
@@ -62,15 +75,14 @@ def process_events(events):
 
     for event in events:
         attendees = event.get('attendees', [])
-        accepted_event = False;
+        accepted_event = False
+        responseStatus = ""
         for attendee in attendees:
-                #  Check if it's the organizer, if it is, consider it accepted.
-                if attendee.get('organizer') is True:
-                  accepted_event = True
-                  break
-
                 if attendee.get('self') :
-                    accepted_event = attendee.get('responseStatus') == 'accepted'
+                    responseStatus = attendee.get('responseStatus')
+                    accepted_event = (responseStatus == 'accepted' or 
+                                      responseStatus == 'needsAction' or 
+                                      bool(attendee.get('organizer')))
                     break  # No need to check other attendees for this event
 
         if accepted_event is False :
@@ -103,6 +115,7 @@ def process_events(events):
             "height": height,
             "summary": event.get("summary", ""),
             "em_hint": 1,
+            "responseStatus": responseStatus,
             "raw": event
         })
 
@@ -142,7 +155,7 @@ def process_events(events):
             event["left"] = event["column"] * (column_width + COLUMN_GAP_PX)
             event["width"] = column_width
             if column_width < 100:
-                event["em_hint"] = get_em_quad_hint(event["summary"])
+                event["em_hint"] = get_em_quad_hint(event["summary"], column_width)
 
     return parsed_events
 
@@ -188,7 +201,7 @@ def calendar_data():
     now_top = 0
     if 0 <= now_since_start <= WORK_DURATION_MINUTES:
         now_top = round(now_since_start * PIXELS_PER_MINUTE)
-        
+
     return jsonify({"events": events, "now_line": now_top})
 
 if __name__ == "__main__":
