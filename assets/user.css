@@ -6,7 +6,7 @@
 .cal-events {
   position:relative; 
   height:345; 
-  margin-left: 49px
+  margin-left: 35px
 }
 
 .cal-item-container {
@@ -47,18 +47,20 @@
 }
 
 .hour-label {
-  width: 50px;
+  width: 35px;
   color: #666;
+  margin-top: -5px;
 }
 
 .hour-bar {
   flex-grow: 1;
   border-top: 1px solid #c7c7c7;
   opacity: 0.3;
+  margin-top: -7px;
 }
 
 .now-line {
-  display: none;
+  /* display: none; */
   position: absolute;
   left: 0;
   width: 100%;

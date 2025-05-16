@@ -87,24 +87,23 @@
       widgets:
         - type: custom-api
           title: Calendar
-          cache: 30m
+          #cache: 30m
           url: http://glance-tasks-backend:8075/data
           template: |
             <div style="position: relative; height: 345px;">
               <div class="hour-lines">
-                <div class="hour-line" style="top: 0px;"><div class="hour-label">7:00 AM</div><div class="hour-bar"></div></div>
-                <div class="hour-line" style="top: 28px;"><div class="hour-label">8:00 AM</div><div class="hour-bar"></div></div>
-                <div class="hour-line" style="top: 57px;"><div class="hour-label">9:00 AM</div><div class="hour-bar"></div></div>
-                <div class="hour-line" style="top: 86px;"><div class="hour-label">10:00 AM</div><div class="hour-bar"></div></div>
-                <div class="hour-line" style="top: 115px;"><div class="hour-label">11:00 AM</div><div class="hour-bar"></div></div>
-                <div class="hour-line" style="top: 144px;"><div class="hour-label">12:00 PM</div><div class="hour-bar"></div></div>
-                <div class="hour-line" style="top: 173px;"><div class="hour-label">1:00 PM</div><div class="hour-bar"></div></div>
-                <div class="hour-line" style="top: 202px;"><div class="hour-label">2:00 PM</div><div class="hour-bar"></div></div>
-                <div class="hour-line" style="top: 231px;"><div class="hour-label">3:00 PM</div><div class="hour-bar"></div></div>
-                <div class="hour-line" style="top: 260px;"><div class="hour-label">4:00 PM</div><div class="hour-bar"></div></div>
-                <div class="hour-line" style="top: 289px;"><div class="hour-label">5:00 PM</div><div class="hour-bar"></div></div>
-                <div class="hour-line" style="top: 318px;"><div class="hour-label">6:00 PM</div><div class="hour-bar"></div></div>
-              </div>
+                <div class="hour-line" style="top: 0px;"><div class="hour-label">8 AM</div><div class="hour-bar"></div></div>
+                  <div class="hour-line" style="top: 34px;"><div class="hour-label">9 AM</div><div class="hour-bar"></div></div>
+                  <div class="hour-line" style="top: 69px;"><div class="hour-label">10 AM</div><div class="hour-bar"></div></div>
+                  <div class="hour-line" style="top: 104px;"><div class="hour-label">11 AM</div><div class="hour-bar"></div></div>
+                  <div class="hour-line" style="top: 138px;"><div class="hour-label">12 PM</div><div class="hour-bar"></div></div>
+                  <div class="hour-line" style="top: 172px;"><div class="hour-label">1 PM</div><div class="hour-bar"></div></div>
+                  <div class="hour-line" style="top: 207px;"><div class="hour-label">2 PM</div><div class="hour-bar"></div></div>
+                  <div class="hour-line" style="top: 241px;"><div class="hour-label">3 PM</div><div class="hour-bar"></div></div>
+                  <div class="hour-line" style="top: 267px;"><div class="hour-label">4 PM</div><div class="hour-bar"></div></div>
+                  <div class="hour-line" style="top: 302px;"><div class="hour-label">5 PM</div><div class="hour-bar"></div></div>
+                  <div class="hour-line" style="top: 337px;"><div class="hour-label">6 PM</div><div class="hour-bar"></div></div>
+                </div>
 
               <!-- Current time line -->
               {{ with .JSON.Int "now_line" }}

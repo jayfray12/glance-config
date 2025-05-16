@@ -14,12 +14,12 @@ CLIENT_SECRET = os.getenv("CLIENT_SECRET")
 REFRESH_TOKEN = os.getenv("REFRESH_TOKEN")
 REDIRECT_URI = "http://localhost:8075"
 DISPLAY_HEIGHT_PX = 345
-WORK_START_MINUTES = 7 * 60
-WORK_END_MINUTES = 19 * 60
+WORK_START_MINUTES = 8 * 60
+WORK_END_MINUTES = 18 * 60
 WORK_DURATION_MINUTES = WORK_END_MINUTES - WORK_START_MINUTES
 PIXELS_PER_MINUTE = DISPLAY_HEIGHT_PX / WORK_DURATION_MINUTES
 MIN_HEIGHT_PX = 24
-COLUMN_GAP_PX = 4
+COLUMN_GAP_PX = 2
 TOTAL_WIDTH_PX = 100
 
 def parse_time(dt_str):
@@ -47,24 +47,36 @@ def get_access_token():
     
 def get_em_quad_hint(input_string, width):
   string_length = len(input_string)
-  if width < 31:
-    if string_length <= 21:
+  if width < 25:
+    if string_length <= 16:
         return 1
-    elif 22 <= string_length < 25:
+    elif 16 <= string_length < 20:
         return 0.9167
-    elif 25 <= string_length < 29:
+    elif 20 <= string_length < 24:
         return 0.8333
-    elif 29 <= string_length < 34:
+    elif 24 <= string_length < 28:
+        return 0.75
+    else:
+        return 0.6667
+
+  if width < 33:
+    if string_length <= 23:
+        return 1
+    elif 24 <= string_length < 27:
+        return 0.9167
+    elif 27 <= string_length < 31:
+        return 0.8333
+    elif 31 <= string_length < 36:
         return 0.75
     else:
         return 0.6667
       
   
-  if string_length < 41:
+  if string_length < 43:
     return 1
-  elif 41 <= string_length < 46:
+  elif 43 <= string_length < 48:
     return 0.9167
-  elif 46 <= string_length < 51:
+  elif 48 <= string_length < 53:
     return 0.8333
   else:
     return 0.75
@@ -172,7 +184,7 @@ def get_calendar_events():
     }
 
     # Always start the day at 7am
-    current_time = datetime.datetime.now(pytz.utc).replace(hour=7, minute=0, second=0, microsecond=0)
+    current_time = datetime.datetime.now(pytz.utc).replace(hour=8, minute=0, second=0, microsecond=0)
     time_min = current_time.isoformat()
     time_max = (current_time + datetime.timedelta(days=1)).isoformat()
 
